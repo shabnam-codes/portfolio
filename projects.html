@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,67 +8,90 @@
     <link rel="stylesheet" href="retro.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="scanlines"></div>
     <div class="noise"></div>
     <div class="noise noise-moving"></div>
 
     <div class="vhs-menu">
-        <div class="menu-header">
-            <div class="play">PROJECTS</div>
-            <div class="time">11:11</div>
-        </div>
-
-        <div class="menu-container">
-            <div class="menu-title">-- MENU --</div>
-            
-            <div class="menu-items">
-                <div class="menu-item" data-project="1">
-                    <span class="menu-number">01.</span>
-                    <span class="menu-name">IMAGE CAPTIONING SYSTEM</span>
-                </div>
-                
-                <div class="menu-item" data-project="2">
-                    <span class="menu-number">02.</span>
-                    <span class="menu-name">CNN FROM SCRATCH</span>
-                </div>
-                
-                <div class="menu-item" data-project="3">
-                    <span class="menu-number">03.</span>
-                    <span class="menu-name">PLACEMENT PREDICTION</span>
-                </div>
-                
-                <div class="menu-item" data-project="4">
-                    <span class="menu-number">04.</span>
-                    <span class="menu-name">MATH OPTIMIZATION</span>
-                </div>
+    <div class="menu-header">
+        <div class="play">PROJECTS</div>
+        <div class="time">22:22</div>
+    </div>
+    
+    <div class="menu-title">-- MENU --</div>
+    
+    <div class="menu-container">
+        <div class="menu-items">
+            <div class="menu-item" data-project="1"
+                data-description="Developed an end-to-end image captioning model that generates human-like descriptions from images using an encoder-decoder architecture. Implemented ResNet-50 CNN for feature extraction and LSTM RNN for text generation using PyTorch. Trained on MS COCO dataset and optimized sequence generation using teacher forcing and greedy decoding."
+                data-tech="Python, PyTorch, ResNet-50, LSTM, OpenCV, MS COCO Dataset"
+                data-github="https://github.com/shabnam-codes/SmartImageCaptioning">
+                <span class="menu-number">01.</span>
+                <span class="menu-name">IMAGE CAPTIONING SYSTEM</span>
             </div>
 
-            <div class="menu-controls">
-                <div class="control-hint">
-                    <span class="key-box">↑</span>
-                    <span class="key-box">↓</span>
-                    <span class="hint-text">NAVIGATE</span>
-                </div>
-                <div class="control-hint">
-                    <span class="key-box">ENTER</span>
-                    <span class="hint-text">SELECT</span>
-                </div>
-                <div class="control-hint">
-                    <span class="key-box">ESC</span>
-                    <span class="hint-text">BACK</span>
-                </div>
+            <div class="menu-item" data-project="2"
+                data-description="Designed and implemented a complete CNN training pipeline in pure Python without using PyTorch, TensorFlow, or NumPy. Implemented core components from first principles including convolution layers, activation functions, loss computation, and manual backpropagation. Built an SGD-based optimizer to train the network on image data."
+                data-tech="Python, Custom Math Implementations, SGD Optimization"
+                data-github="https://github.com/shabnam-codes/NeuralNetwork">
+                <span class="menu-number">02.</span>
+                <span class="menu-name">CNN FROM SCRATCH</span>
             </div>
-        </div>
 
-        <div class="menu-footer">
-            <div class="footer-left">
-                <span class="indicator">●</span>
-                <span class="indicator-text">REC</span>
+            <div class="menu-item" data-project="3"
+                data-description="Built a predictive model to determine student placement outcomes based on academic and experiential factors. Performed data preprocessing, feature engineering, and implemented Logistic Regression using Scikit-learn."
+                data-tech="Python, Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn"
+                data-github="https://github.com/shabnam-codes/College_Placement_ml">
+                <span class="menu-number">03.</span>
+                <span class="menu-name">COLLEGE PLACEMENT PREDICTION</span>
+            </div>
+
+            <div class="menu-item" data-project="4"
+                data-description="End-to-end custom mathematical implementation for neural network optimization. Deep dive into gradient descent algorithms and backpropagation mechanics built from scratch."
+                data-tech="Python, Mathematics, Optimization Algorithms, Neural Networks"
+                data-github="https://github.com/shabnam-codes/College_Placement_EDA">
+                <span class="menu-number">04.</span>
+                <span class="menu-name">COLLEGE PLACEMENT EDA</span>
             </div>
         </div>
     </div>
+    <div class="project-details-panel" id="detailsPanel">
+    <div class="details-content">
+        <h3 class="details-title" id="detailsTitle"></h3>
+        <p class="details-description" id="detailsDescription"></p>
+        <div class="details-tech">
+            <span class="tech-label">TECH STACK:</span>
+            <span class="tech-list" id="detailsTech"></span>
+        </div>
+        <a href="#" class="github-link" id="githubLink" target="_blank">
+            <span class="triangle-icon">▶</span>
+            <span class="link-text">VIEW ON GITHUB</span>
+            <span class="triangle-icon">◀</span>
+        </a>
+    </div>
+</div>
+    <div class="menu-controls">
+        <div class="control-hint">
+            <span class="key-box">↑</span>
+            <span class="key-box">↓</span>
+            <span class="hint-text">NAVIGATE</span>
+        </div>
+        <div class="control-hint">
+            <span class="key-box">ESC</span>
+            <span class="hint-text">BACK</span>
+        </div>
+    </div>
 
+    <div class="menu-footer">
+        <div class="footer-left">
+            <span class="indicator">●</span>
+            <span class="indicator-text">REC</span>
+        </div>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
+
 </html>
