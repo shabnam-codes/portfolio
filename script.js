@@ -1,37 +1,4 @@
 // Update time display
-function updateTime() {
-    const timeDisplay = document.querySelector('.time');
-    const timeTerminal = document.querySelector('.time-terminal');
-    
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const timeString = `${hours}:${minutes}`;
-    
-    if (timeDisplay) timeDisplay.textContent = timeString;
-    if (timeTerminal) timeTerminal.textContent = timeString;
-}
-
-// Update record speed counter
-let seconds = 0;
-function updateRecordSpeed() {
-    const speedDisplay = document.querySelector('.recordSpeed');
-    if (speedDisplay) {
-        const hours = Math.floor(seconds / 3600);
-        const mins = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
-        
-        speedDisplay.textContent = `SLP ${hours}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        seconds++;
-    }
-}
-
-// Initialize time updates
-updateTime();
-setInterval(updateTime, 1000);
-setInterval(updateRecordSpeed, 1000);
-
-// Menu navigation
 let currentIndex = 0;
 const menuItems = document.querySelectorAll('.menu-item');
 let isInTerminal = false;
@@ -283,7 +250,10 @@ async function processCommand(cmd) {
 }
 
 // Keyboard navigation
+// FIXED Keyboard navigation
 document.addEventListener('keydown', (e) => {
+
+    // Ignore keys if typing inside terminal input
     if (isInTerminal) {
         if (e.key === 'Escape') {
             e.preventDefault();
@@ -291,27 +261,39 @@ document.addEventListener('keydown', (e) => {
         }
         return;
     }
-    
-    switch(e.key) {
+
+    // Make sure menu exists
+    if (!menuItems.length) return;
+
+    switch (e.key) {
+
         case 'ArrowUp':
             e.preventDefault();
             currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
             updateActiveItem();
             break;
-            
+
         case 'ArrowDown':
             e.preventDefault();
             currentIndex = (currentIndex + 1) % menuItems.length;
             updateActiveItem();
             break;
-            
+
         case 'Enter':
             e.preventDefault();
+
+            // FORCE focus to active item before selecting
             const activeItem = menuItems[currentIndex];
+
+            if (!activeItem) return;
+
             const projectId = activeItem.getAttribute('data-project');
-            selectProject(projectId);
+
+            if (projectId) {
+                selectProject(projectId);
+            }
             break;
-            
+
         case 'Escape':
             e.preventDefault();
             window.location.href = 'index.html';
@@ -333,8 +315,72 @@ menuItems.forEach((item, index) => {
     item.addEventListener('mouseenter', () => {
         currentIndex = index;
         updateActiveItem();
+        showProjectDetails(item);
+    });
+    
+    item.addEventListener('mouseleave', () => {
+        // Keep details visible while hovering
     });
 });
+
+// Show project details on hover
+function showProjectDetails(item) {
+    const detailsPanel = document.getElementById('detailsPanel');
+    const detailsTitle = document.getElementById('detailsTitle');
+    const detailsDescription = document.getElementById('detailsDescription');
+    const detailsTech = document.getElementById('detailsTech');
+    const githubLink = document.getElementById('githubLink');
+    
+    if (!detailsPanel) return;
+    
+    const title = item.querySelector('.menu-name').textContent;
+    const description = item.getAttribute('data-description');
+    const tech = item.getAttribute('data-tech');
+    const github = item.getAttribute('data-github');
+    
+    detailsTitle.textContent = title;
+    detailsDescription.textContent = description;
+    detailsTech.textContent = tech;
+    githubLink.href = github;
+    
+    detailsPanel.classList.add('active');
+}
+
+// Hide details when mouse leaves menu area
+// Hide details when mouse leaves both menu and panel
+const menuContainer = document.querySelector('.menu-container');
+const detailsPanel = document.getElementById('detailsPanel');
+
+if (menuContainer && detailsPanel) {
+    let isOverMenu = false;
+    let isOverPanel = false;
+    
+    menuContainer.addEventListener('mouseenter', () => {
+        isOverMenu = true;
+    });
+    
+    menuContainer.addEventListener('mouseleave', () => {
+        isOverMenu = false;
+        setTimeout(() => {
+            if (!isOverPanel) {
+                detailsPanel.classList.remove('active');
+            }
+        }, 100);
+    });
+    
+    detailsPanel.addEventListener('mouseenter', () => {
+        isOverPanel = true;
+    });
+    
+    detailsPanel.addEventListener('mouseleave', () => {
+        isOverPanel = false;
+        setTimeout(() => {
+            if (!isOverMenu) {
+                detailsPanel.classList.remove('active');
+            }
+        }, 100);
+    });
+}
 
 // Project selection
 function selectProject(projectId) {
