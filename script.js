@@ -1,4 +1,3 @@
-// Update time display
 let currentIndex = 0;
 const menuItems = document.querySelectorAll('.menu-item');
 let isInTerminal = false;
