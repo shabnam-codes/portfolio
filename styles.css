@@ -15,7 +15,8 @@
   color: #270245;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
 }
@@ -249,7 +250,6 @@ body:before {
   gap: 1.5rem;
   justify-content: center;
   margin-bottom: 2.5rem;
-  flex-wrap: wrap;
 }
 
 .btn {
@@ -275,7 +275,6 @@ body:before {
 
 .btn-primary {
   background: rgba(255, 255, 255, 0.15);
-  position: absolute;
 }
 
 .connect {
@@ -459,4 +458,4 @@ body:before {
   20%, 100% {
     opacity: 1;
   }
-}/*# sourceMappingURL=styles.css.map */
+}
