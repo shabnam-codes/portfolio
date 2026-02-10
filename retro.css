@@ -16,7 +16,8 @@
   color: #270245;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
 }
@@ -66,7 +67,7 @@ body:before {
 }
 .noise-moving:before {
   will-change: background-position;
-  animation: noise 1s infinite alternate;
+  animation: noise 5s infinite alternate;
 }
 
 .scanlines {
@@ -79,7 +80,7 @@ body:before {
   z-index: 300;
   opacity: 0.6;
   will-change: opacity;
-  animation: opacity 3s linear infinite;
+  animation: opacity 10s linear infinite;
 }
 .scanlines:before {
   content: "";
@@ -132,49 +133,45 @@ body:before {
   animation: rgbText 1s steps(9) 0s infinite alternate;
 }
 
-.recordSpeed {
-  position: absolute;
-  left: 2rem;
-  bottom: -1rem;
-  font-size: 2rem;
-  will-change: text-shadow;
-  line-height: 1;
-  animation: rgbText 1s steps(9) 0s infinite alternate;
-}
-
 .menu-container {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 3%;
+  transform: translateY(-50%);
   width: 90%;
-  max-width: 800px;
-  text-align: center;
+  max-width: 1050px;
+  text-align: left;
+  overflow: hidden;
 }
 
 .menu-title {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   margin-bottom: 3rem;
+  margin-top: 1px;
   letter-spacing: 0.2em;
   will-change: text-shadow;
   animation: rgbText 2s steps(9) 0s infinite alternate;
+  text-align: center;
 }
 
 .menu-items {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-bottom: 4rem;
+  margin-top: 6%;
+  margin-bottom: 2rem;
 }
 
 .menu-item {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  max-width: 670px;
   padding: 1.5rem 2rem;
   background: rgba(0, 0, 0, 0.3);
   border: 3px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
+  line-height: 1;
   transition: all 0.3s ease;
   position: relative;
 }
@@ -211,12 +208,17 @@ body:before {
   text-align: left;
 }
 
+/* ================= MENU CONTROLS ================= */
 .menu-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   gap: 3rem;
-  flex-wrap: wrap;
-  margin-top: 3rem;
+  flex-wrap: nowrap;
+  width: auto;
 }
 
 .control-hint {
@@ -241,24 +243,32 @@ body:before {
 
 .menu-footer {
   position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  right: 2rem;
+  left: 0;
+  bottom: 1.5rem;
+  width: 100%;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  font-size: 2rem;
-  line-height: 1;
+  align-items: center;
+  font-family: "Press Start 2P", cursive;
 }
 
 .footer-left {
   display: flex;
   align-items: center;
   gap: 1rem;
+  font-size: clamp(1rem, 2vw, 1.5rem);
 }
 
+.footer-right {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  will-change: text-shadow;
+  animation: rgbText 2s steps(9) 0s infinite alternate;
+}
+
+/* Blinking REC dot */
 .indicator {
-  font-size: 2rem;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   color: #ff0000;
   animation: blink 1s ease-in-out infinite;
 }
@@ -268,9 +278,99 @@ body:before {
   animation: rgbText 1s steps(9) 0s infinite alternate;
 }
 
-.footer-right {
+.project-details-panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80%;
+  max-width: 650px;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+.project-details-panel.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.details-title {
+  font-family: "Press Start 2P", cursive;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  line-height: 1.4;
   will-change: text-shadow;
-  animation: rgbText 2s steps(9) 0s infinite alternate;
+  animation: rgbText 1.5s steps(9) 0s infinite alternate;
+  margin-bottom: 0.5rem;
+}
+
+.details-description {
+  font-family: "Courier New", monospace;
+  font-size: clamp(0.8rem, 1.3vw, 1rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.details-tech {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tech-label {
+  font-family: "Press Start 2P", cursive;
+  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tech-list {
+  font-family: "Courier New", monospace;
+  font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+  line-height: 1.5;
+  color: #00ff00;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  color: #ffffff;
+  font-family: "Press Start 2P", cursive;
+  font-size: clamp(0.6rem, 1.1vw, 0.8rem);
+  transition: all 0.3s ease;
+  will-change: text-shadow, border-color;
+  animation: rgbText 1.8s steps(9) 0s infinite alternate;
+  margin-top: 1rem;
+}
+
+.github-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.05);
+}
+
+.triangle-icon {
+  font-size: 1.2em;
+  will-change: text-shadow;
+  animation: rgbText 1s steps(9) 0s infinite alternate;
+}
+
+.link-text {
+  letter-spacing: 0.1em;
 }
 
 /* Animations */
@@ -373,8 +473,10 @@ body:before {
 /* Responsive */
 @media (max-width: 768px) {
   .menu-container {
-    width: 50%;
+    width: 90%;
+    max-height: 320px;
     padding: 1rem;
+    left: 5%;
   }
   .menu-items {
     gap: 1rem;
@@ -384,18 +486,20 @@ body:before {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+    max-height: 260px; /* height for roughly 4 items */
+    overflow-y: auto; /* enable vertical scroll */
+    padding-right: 10px;
   }
   .menu-number {
     margin-right: 0;
   }
   .menu-controls {
     gap: 1rem;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    bottom: 10%;
   }
   .play,
   .time,
-  .recordSpeed,
   .footer-left,
   .footer-right {
     font-size: 1.2rem;
